@@ -41,6 +41,7 @@
       sliderWrapperClass: 'slider-wrapper',
       transitionDuration: 250,
       zoomScale: -100,
+      disableOpacity: false,
     };
 
     constructor(container, options = {}) {
@@ -521,7 +522,7 @@
         this.renderTranslation(
           el,
           0,
-          this.options.fullWidth ? 1 : 1 - 0.2 * tween,
+          this.options.fullWidth || this.options.disableOpacity ? 1 : 1 - 0.2 * tween,
           -delta / 2,
           this.options.zoomScale * tween,
           dir * this.options.shift * tween * i
