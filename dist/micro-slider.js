@@ -289,7 +289,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!_this.options.noWrap || _this.center + i < _this.itemCount) {
             el = _this.items[_this.wrap(_this.center + i)];
 
-            _this.renderTranslation(el, -i, _this.options.disableOpacity ? 1 : tweenOpacity, _this.options.shift + (_this.dim * i - delta) / 2, zTranslation);
+            _this.renderTranslation(el, -i, _this.options.disableOpacity && _this.center + i !== _this.itemCount - 1 ? 1 : tweenOpacity, _this.options.shift + (_this.dim * i - delta) / 2, zTranslation);
           }
 
           /**
@@ -309,7 +309,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!_this.options.noWrap || _this.center - i >= 0) {
             el = _this.items[_this.wrap(_this.center - i)];
 
-            _this.renderTranslation(el, -i, _this.options.disableOpacity ? 1 : tweenOpacity, -_this.options.shift + (-_this.dim * i - delta) / 2, zTranslation);
+            _this.renderTranslation(el, -i, _this.options.disableOpacity && _this.center - i !== 0 ? 1 : tweenOpacity, -_this.options.shift + (-_this.dim * i - delta) / 2, zTranslation);
           }
         }
 
@@ -394,7 +394,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         el.style[_this.xForm] = alignment + " translateX(" + x1 + "px) " + tx2 + "translateZ(" + z + "px)";
         el.style.zIndex = zIndex;
-        // el.style.opacity = opacity;
+        el.style.opacity = opacity;
         el.style.display = "block";
       };
 

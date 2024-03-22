@@ -572,7 +572,10 @@
           this.renderTranslation(
             el,
             -i,
-            this.options.disableOpacity ? 1 : tweenOpacity,
+            this.options.disableOpacity &&
+              this.center + i !== this.itemCount - 1
+              ? 1
+              : tweenOpacity,
             this.options.shift + (this.dim * i - delta) / 2,
             zTranslation
           );
@@ -598,7 +601,9 @@
           this.renderTranslation(
             el,
             -i,
-            this.options.disableOpacity ? 1 : tweenOpacity,
+            this.options.disableOpacity && this.center - i !== 0
+              ? 1
+              : tweenOpacity,
             -this.options.shift + (-this.dim * i - delta) / 2,
             zTranslation
           );
@@ -700,7 +705,7 @@
         this.xForm
       ] = `${alignment} translateX(${x1}px) ${tx2}translateZ(${z}px)`;
       el.style.zIndex = zIndex;
-      // el.style.opacity = opacity;
+      el.style.opacity = opacity;
       el.style.display = "block";
     };
 
