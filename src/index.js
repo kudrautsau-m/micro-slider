@@ -668,7 +668,7 @@
 
       el.style[this.xForm] = `${alignment} translateX(${x1}px) ${tx2}translateZ(${z}px)`;
       el.style.zIndex = zIndex;
-      el.style.opacity = opacity;
+      // el.style.opacity = opacity;
       el.style.display = 'block';
     };
 
