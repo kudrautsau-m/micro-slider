@@ -469,7 +469,7 @@
         this.offset = this.center * 2 * this.itemDimensions.width;
         this.target = this.offset;
       } else {
-        this.scroll();
+        // this.scroll();
       }
     };
 
