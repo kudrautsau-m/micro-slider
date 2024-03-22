@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -9,7 +9,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 (function (MS) {
-  'use strict';
+  "use strict";
 
   /**
    * Support RequireJS and CommonJS/NodeJS module formats.
@@ -19,15 +19,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
    * Cond 3: Attach to Window Object
    */
 
-  if (typeof define === 'function' && define.amd) {
+  if (typeof define === "function" && define.amd) {
     define(MS);
-  } else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object' && (typeof module === 'undefined' ? 'undefined' : _typeof(module)) === 'object') {
+  } else if ((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === "object" && (typeof module === "undefined" ? "undefined" : _typeof(module)) === "object") {
     module.exports = MS();
-  } else if ((typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object') {
+  } else if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") {
     window.MicroSlider = MS();
   }
 })(function () {
-  'use strict';
+  "use strict";
 
   var MicroSlider = function () {
     function MicroSlider(container) {
@@ -76,7 +76,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         var clickDelegate = e.target;
         if (!clickDelegate.classList.contains(_this.options.sliderItemClass)) {
-          clickDelegate = e.target.closest('.' + _this.options.sliderItemClass);
+          clickDelegate = e.target.closest("." + _this.options.sliderItemClass);
 
           if (!clickDelegate) {
             return;
@@ -88,7 +88,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           e.stopPropagation();
           return false;
         } else if (!_this.options.fullWidth) {
-          var closest = clickDelegate.closest('.' + _this.options.sliderItemClass);
+          var closest = clickDelegate.closest("." + _this.options.sliderItemClass);
           var clickedIndex = _this.getItemIndex(closest);
           var diff = _this.center % _this.itemCount - clickedIndex;
 
@@ -253,7 +253,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
          * Compute Scroll
          */
         _this.lastCenter = _this.center;
-        _this.offset = typeof x === 'number' ? x : _this.offset;
+        _this.offset = typeof x === "number" ? x : _this.offset;
         _this.center = Math.floor((_this.offset + _this.dim / 2) / _this.dim);
 
         var delta = _this.offset - _this.center * _this.dim;
@@ -268,7 +268,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           el = _this.items[_this.wrap(_this.center)];
           _this.setActiveItem(el);
 
-          _this.renderTranslation(el, 0, _this.options.fullWidth ? 1 : 1 - 0.2 * tween, -delta / 2, _this.options.zoomScale * tween, dir * _this.options.shift * tween * i);
+          _this.renderTranslation(el, 0, _this.options.fullWidth || _this.options.disableOpacity ? 1 : 1 - 0.2 * tween, -delta / 2, _this.options.zoomScale * tween, dir * _this.options.shift * tween * i);
         }
 
         /**
@@ -289,7 +289,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!_this.options.noWrap || _this.center + i < _this.itemCount) {
             el = _this.items[_this.wrap(_this.center + i)];
 
-            _this.renderTranslation(el, -i, tweenOpacity, _this.options.shift + (_this.dim * i - delta) / 2, zTranslation);
+            _this.renderTranslation(el, -i, _this.options.disableOpacity ? 1 : tweenOpacity, _this.options.shift + (_this.dim * i - delta) / 2, zTranslation);
           }
 
           /**
@@ -309,14 +309,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!_this.options.noWrap || _this.center - i >= 0) {
             el = _this.items[_this.wrap(_this.center - i)];
 
-            _this.renderTranslation(el, -i, tweenOpacity, -_this.options.shift + (-_this.dim * i - delta) / 2, zTranslation);
+            _this.renderTranslation(el, -i, _this.options.disableOpacity ? 1 : tweenOpacity, -_this.options.shift + (-_this.dim * i - delta) / 2, zTranslation);
           }
         }
 
         /**
          * onCycleTo Callback
          */
-        if (_this.lastCenter !== _this.center && typeof _this.options.onCycleTo === 'function') {
+        if (_this.lastCenter !== _this.center && typeof _this.options.onCycleTo === "function") {
           _this.options.onCycleTo.call(_this, _this.activeItem, _this.draggedY);
         }
       };
@@ -339,7 +339,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       };
 
       this.setActiveItem = function (el) {
-        if (typeof el === 'string') {
+        if (typeof el === "string") {
           el = document.querySelector(el);
         }
 
@@ -351,7 +351,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         });
 
         if (!el || !(el instanceof HTMLElement) || !item) {
-          throw new Error('Could not resolve element passed to `Slider.setActiveItem()`');
+          throw new Error("Could not resolve element passed to `Slider.setActiveItem()`");
         }
 
         if (!el.classList.contains(_this.options.activeItemClass)) {
@@ -380,22 +380,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.renderTranslation = function (el, zIndex, opacity, x1, z) {
         var x2 = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
 
-        var alignment = 'translateX(0)';
+        var alignment = "translateX(0)";
         if (!_this.options.fullWidth) {
           var tX = (_this.sliderContainer.clientWidth - _this.itemDimensions.width) / 2;
           var tY = (_this.sliderContainer.clientHeight - _this.itemDimensions.height) / 2;
-          alignment = 'translateX(' + tX + 'px) translateY(' + tY + 'px)';
+          alignment = "translateX(" + tX + "px) translateY(" + tY + "px)";
         }
 
-        var tx2 = '';
+        var tx2 = "";
         if (x2 !== null) {
-          tx2 = 'translateX(' + x2 + 'px) ';
+          tx2 = "translateX(" + x2 + "px) ";
         }
 
-        el.style[_this.xForm] = alignment + ' translateX(' + x1 + 'px) ' + tx2 + 'translateZ(' + z + 'px)';
+        el.style[_this.xForm] = alignment + " translateX(" + x1 + "px) " + tx2 + "translateZ(" + z + "px)";
         el.style.zIndex = zIndex;
         el.style.opacity = opacity;
-        el.style.display = 'block';
+        el.style.display = "block";
       };
 
       this.autoScroll = function () {
@@ -459,7 +459,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }
 
     _createClass(MicroSlider, [{
-      key: 'init',
+      key: "init",
       value: function init() {
         this.setSliderContainer();
         this.setSliderWrapper();
@@ -477,14 +477,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.initialized = true;
       }
     }, {
-      key: 'setSliderContainer',
+      key: "setSliderContainer",
       value: function setSliderContainer() {
-        if (typeof this.sliderContainer === 'string') {
+        if (typeof this.sliderContainer === "string") {
           this.sliderContainer = document.querySelector(this.sliderContainer);
         }
 
         if (!(this.sliderContainer instanceof HTMLElement)) {
-          throw new Error('\n        The slider needs to be instantiated with an HTML Element as the first parameter or a valid CSS selector.\n        eg.: new Carousel(document.getElementById(\'MyElement\')) or new Carousel(\'#myElement\').\n      ');
+          throw new Error("\n        The slider needs to be instantiated with an HTML Element as the first parameter or a valid CSS selector.\n        eg.: new Carousel(document.getElementById('MyElement')) or new Carousel('#myElement').\n      ");
         }
 
         if (!this.sliderContainer.classList.contains(this.options.sliderClass)) {
@@ -496,16 +496,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }
     }, {
-      key: 'setSliderWrapper',
+      key: "setSliderWrapper",
       value: function setSliderWrapper() {
-        this.sliderWrapper = document.createElement('div');
+        this.sliderWrapper = document.createElement("div");
         this.sliderWrapper.classList.add(this.options.sliderWrapperClass);
-        this.sliderWrapper.style.overflow = 'hidden';
-        this.sliderWrapper.style.width = '100%';
+        this.sliderWrapper.style.overflow = "hidden";
+        this.sliderWrapper.style.width = "100%";
         this.sliderContainer.appendChild(this.sliderWrapper);
       }
     }, {
-      key: 'setSliderItems',
+      key: "setSliderItems",
       value: function setSliderItems() {
         var children = this.sliderContainer.children;
         var dispose = [];
@@ -533,25 +533,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.itemCount = this.items.length;
         if (!this.itemCount) {
-          throw new Error('\n        The slider does not contain any valid items. \n        Please ensure that the items have the class name \'slider-item\' appended to them.\n      ');
+          throw new Error("\n        The slider does not contain any valid items. \n        Please ensure that the items have the class name 'slider-item' appended to them.\n      ");
         }
       }
     }, {
-      key: 'setSliderDimensions',
+      key: "setSliderDimensions",
       value: function setSliderDimensions() {
         var item = this.items[0];
-        item.style.display = 'block';
-        this.setSliderItemsDimensions(item.offsetHeight + 'px', item.offsetWidth + 'px');
+        item.style.display = "block";
+        this.setSliderItemsDimensions(item.offsetHeight + "px", item.offsetWidth + "px");
 
         if (!this.initialized) {
-          item.style.display = 'none';
+          item.style.display = "none";
         }
       }
     }, {
-      key: 'setSliderItemsDimensions',
+      key: "setSliderItemsDimensions",
       value: function setSliderItemsDimensions() {
-        var height = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '320px';
-        var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '320px';
+        var height = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "320px";
+        var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "320px";
 
         for (var i = 0; i < this.itemCount; i++) {
           var item = this.items[i];
@@ -567,13 +567,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.dim = this.itemDimensions.width * 2 + this.options.padding;
       }
     }, {
-      key: 'setSliderPerspective',
+      key: "setSliderPerspective",
       value: function setSliderPerspective() {
-        this.sliderWrapper.style.height = this.sliderContainer.offsetHeight + 'px';
-        this.sliderWrapper.style.perspective = this.options.fullWidth ? 'none' : this.itemDimensions.height * this.options.perspectiveFactor + 'px';
+        this.sliderWrapper.style.height = this.sliderContainer.offsetHeight + "px";
+        this.sliderWrapper.style.perspective = this.options.fullWidth ? "none" : this.itemDimensions.height * this.options.perspectiveFactor + "px";
       }
     }, {
-      key: 'setIndicators',
+      key: "setIndicators",
       value: function setIndicators() {
         var _this2 = this;
 
@@ -586,14 +586,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _loop = function _loop(i) {
             var indicator = document.createElement(_this2.options.indicatorItemTag);
             indicator.className = _this2.options.indicatorItemClass;
-            indicator.innerHTML = '<a href="#">' + _this2.options.indicatorText + '</a>';
+            indicator.innerHTML = "<a href=\"#\">" + _this2.options.indicatorText + "</a>";
 
             if (i === 0) {
               _this2.activeIndicator = indicator;
               indicator.classList.add(_this2.options.indicatorActiveClass);
             }
 
-            indicator.addEventListener('click', function (e) {
+            indicator.addEventListener("click", function (e) {
               e.preventDefault();
               _this2.set(i);
             });
@@ -608,14 +608,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }
     }, {
-      key: 'setXForm',
+      key: "setXForm",
       value: function setXForm() {
-        var xForm = 'transform';
+        var xForm = "transform";
 
-        ['webkit', 'Moz', 'O', 'ms'].forEach(function (prefix) {
-          var e = prefix + 'Transform';
+        ["webkit", "Moz", "O", "ms"].forEach(function (prefix) {
+          var e = prefix + "Transform";
 
-          if (typeof document.body.style[e] !== 'undefined') {
+          if (typeof document.body.style[e] !== "undefined") {
             xForm = e;
           }
         });
@@ -623,39 +623,39 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.xForm = xForm;
       }
     }, {
-      key: 'bindEvents',
+      key: "bindEvents",
       value: function bindEvents() {
         var unbind = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-        var fn = unbind === false ? 'addEventListener' : 'removeEventListener';
+        var fn = unbind === false ? "addEventListener" : "removeEventListener";
 
         /**
          * Touch Events
          */
-        if (typeof window.ontouchstart !== 'undefined') {
-          this.sliderContainer[fn]('touchstart', this.tapHandler);
-          this.sliderContainer[fn]('touchmove', this.dragHandler);
-          this.sliderContainer[fn]('touchend', this.releaseHandler);
+        if (typeof window.ontouchstart !== "undefined") {
+          this.sliderContainer[fn]("touchstart", this.tapHandler);
+          this.sliderContainer[fn]("touchmove", this.dragHandler);
+          this.sliderContainer[fn]("touchend", this.releaseHandler);
         }
 
         /**
          * Mouse Events
          */
-        this.sliderContainer[fn]('mousedown', this.tapHandler);
-        this.sliderContainer[fn]('mousemove', this.dragHandler);
-        this.sliderContainer[fn]('mouseup', this.releaseHandler);
-        this.sliderContainer[fn]('mouseleave', this.releaseHandler);
-        this.sliderContainer[fn]('click', this.clickHandler);
+        this.sliderContainer[fn]("mousedown", this.tapHandler);
+        this.sliderContainer[fn]("mousemove", this.dragHandler);
+        this.sliderContainer[fn]("mouseup", this.releaseHandler);
+        this.sliderContainer[fn]("mouseleave", this.releaseHandler);
+        this.sliderContainer[fn]("click", this.clickHandler);
 
         /**
          * Window Resize Event
          */
-        window[fn]('resize', this.resizeHandler);
+        window[fn]("resize", this.resizeHandler);
 
         this.attached = unbind === false;
       }
     }, {
-      key: 'getXPos',
+      key: "getXPos",
       value: function getXPos(e) {
         var x = e.clientX;
 
@@ -666,7 +666,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return x;
       }
     }, {
-      key: 'getYPos',
+      key: "getYPos",
       value: function getYPos(e) {
         var y = e.clientY;
 
@@ -677,7 +677,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return y;
       }
     }, {
-      key: 'wrap',
+      key: "wrap",
       value: function wrap(x) {
         var c = this.itemCount;
 
@@ -690,7 +690,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
       }
     }, {
-      key: 'getItemIndex',
+      key: "getItemIndex",
       value: function getItemIndex(el) {
         for (var i = 0; i < this.itemCount; i++) {
           if (this.items[i] === el) {
@@ -701,21 +701,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return -1;
       }
     }, {
-      key: 'refresh',
+      key: "refresh",
       value: function refresh() {
         requestAnimationFrame(this.autoScroll);
         this.resizeHandler();
         this.scroll();
       }
     }, {
-      key: 'toggleFullWidth',
+      key: "toggleFullWidth",
       value: function toggleFullWidth() {
         var fullWidth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
         var itemWidth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 320;
         var itemHeight = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-        var height = itemHeight === null ? this.itemDimensions.height + 'px' : itemHeight + 'px';
-        var width = fullWidth ? '100%' : itemWidth + 'px';
+        var height = itemHeight === null ? this.itemDimensions.height + "px" : itemHeight + "px";
+        var width = fullWidth ? "100%" : itemWidth + "px";
         this.options.fullWidth = fullWidth;
 
         this.setSliderItemsDimensions(height, width);
@@ -723,7 +723,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.refresh();
       }
     }, {
-      key: 'detach',
+      key: "detach",
       value: function detach() {
         this.bindEvents(true);
       }
@@ -733,27 +733,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   }();
 
   MicroSlider.defaults = {
-    activeItemClass: 'active',
+    activeItemClass: "active",
     fullWidth: false,
-    scrollingClass: 'scrolling',
+    scrollingClass: "scrolling",
     indicators: false,
-    indicatorActiveClass: 'active',
-    indicatorContainerTag: 'ul',
-    indicatorContainerClass: 'indicators',
-    indicatorItemTag: 'li',
-    indicatorItemClass: 'indicator',
-    indicatorText: '&bull;',
-    initializedClass: 'initialized',
+    indicatorActiveClass: "active",
+    indicatorContainerTag: "ul",
+    indicatorContainerClass: "indicators",
+    indicatorItemTag: "li",
+    indicatorItemClass: "indicator",
+    indicatorText: "&bull;",
+    initializedClass: "initialized",
     noWrap: false,
     onCycleTo: null,
     padding: 0,
     perspectiveFactor: 1.25,
     shift: 0,
-    sliderClass: 'micro-slider',
-    sliderItemClass: 'slider-item',
-    sliderWrapperClass: 'slider-wrapper',
+    sliderClass: "micro-slider",
+    sliderItemClass: "slider-item",
+    sliderWrapperClass: "slider-wrapper",
     transitionDuration: 250,
-    zoomScale: -100
+    zoomScale: -100,
+    disableOpacity: false
   };
 
 
