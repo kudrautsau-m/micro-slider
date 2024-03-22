@@ -589,9 +589,8 @@
           tweenOpacity = i === half && delta > 0 ? 1 - tween : 1;
         } else if (this.options.disableOpacity) {
           zTranslation = this.options.zoomScale * (i * 2 - tween * dir);
-          tweenOpacity = i === half && delta < 0 ? 1 - tween : 1;
-        }
-        {
+          tweenOpacity = i === half && delta > 0 ? 1 - tween : 1;
+        } else {
           zTranslation = this.options.zoomScale * (i * 2 - tween * dir);
           tweenOpacity = 1 - 0.2 * (i * 2 - tween * dir);
         }

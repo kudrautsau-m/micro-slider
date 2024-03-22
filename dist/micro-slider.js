@@ -303,9 +303,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             tweenOpacity = i === half && delta > 0 ? 1 - tween : 1;
           } else if (_this.options.disableOpacity) {
             zTranslation = _this.options.zoomScale * (i * 2 - tween * dir);
-            tweenOpacity = i === half && delta < 0 ? 1 - tween : 1;
-          }
-          {
+            tweenOpacity = i === half && delta > 0 ? 1 - tween : 1;
+          } else {
             zTranslation = _this.options.zoomScale * (i * 2 - tween * dir);
             tweenOpacity = 1 - 0.2 * (i * 2 - tween * dir);
           }
