@@ -281,6 +281,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (_this.options.fullWidth) {
             zTranslation = _this.options.zoomScale;
             tweenOpacity = i === half && delta < 0 ? 1 - tween : 1;
+          } else if (_this.options.disableOpacity) {
+            zTranslation = _this.options.zoomScale * (i * 2 + tween * dir);
+            tweenOpacity = i === half && delta < 0 ? 1 - tween : 1;
           } else {
             zTranslation = _this.options.zoomScale * (i * 2 + tween * dir);
             tweenOpacity = 1 - 0.2 * (i * 2 + tween * dir);
@@ -289,7 +292,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!_this.options.noWrap || _this.center + i < _this.itemCount) {
             el = _this.items[_this.wrap(_this.center + i)];
 
-            _this.renderTranslation(el, -i, _this.options.disableOpacity && _this.center + i !== _this.itemCount - 1 ? 1 : tweenOpacity, _this.options.shift + (_this.dim * i - delta) / 2, zTranslation);
+            _this.renderTranslation(el, -i, tweenOpacity, _this.options.shift + (_this.dim * i - delta) / 2, zTranslation);
           }
 
           /**
@@ -298,7 +301,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (_this.options.fullWidth) {
             zTranslation = _this.options.zoomScale;
             tweenOpacity = i === half && delta > 0 ? 1 - tween : 1;
-          } else {
+          } else if (_this.options.disableOpacity) {
+            zTranslation = _this.options.zoomScale * (i * 2 - tween * dir);
+            tweenOpacity = i === half && delta > 0 ? 1 - tween : 1;
+          }
+          {
             zTranslation = _this.options.zoomScale * (i * 2 - tween * dir);
             tweenOpacity = 1 - 0.2 * (i * 2 - tween * dir);
           }
@@ -309,7 +316,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (!_this.options.noWrap || _this.center - i >= 0) {
             el = _this.items[_this.wrap(_this.center - i)];
 
-            _this.renderTranslation(el, -i, _this.options.disableOpacity && _this.center - i !== 0 ? 1 : tweenOpacity, -_this.options.shift + (-_this.dim * i - delta) / 2, zTranslation);
+            _this.renderTranslation(el, -i, tweenOpacity, -_this.options.shift + (-_this.dim * i - delta) / 2, zTranslation);
           }
         }
 
