@@ -550,7 +550,7 @@
           this.renderTranslation(
             el,
             -i,
-            tweenOpacity,
+            this.options.disableOpacity ? 1 : tweenOpacity,
             this.options.shift + (this.dim * i - delta) / 2,
             zTranslation
           );
@@ -576,7 +576,7 @@
           this.renderTranslation(
             el,
             -i,
-            tweenOpacity,
+             this.options.disableOpacity ? 1 : tweenOpacity,
             -this.options.shift + (-this.dim * i - delta) / 2,
             zTranslation
           )
