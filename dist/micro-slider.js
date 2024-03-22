@@ -199,7 +199,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           _this.offset = _this.center * 2 * _this.itemDimensions.width;
           _this.target = _this.offset;
         } else {
-          // this.scroll();
+          _this.scroll(_this.offset || 0);
         }
       };
 
