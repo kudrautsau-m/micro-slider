@@ -42,6 +42,7 @@
       transitionDuration: 250,
       zoomScale: -100,
       disableOpacity: false,
+      onActiveItemChange: undefined,
     };
 
     constructor(container, options = {}) {
@@ -672,6 +673,9 @@
       }
 
       this.setActiveIndicator();
+      if (this.options.onActiveItemChange) {
+        this.options.onActiveItemChange(this.activeItemIndex);
+      }
     };
 
     setActiveIndicator = () => {

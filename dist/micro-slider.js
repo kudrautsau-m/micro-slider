@@ -373,6 +373,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
 
         _this.setActiveIndicator();
+        if (_this.options.onActiveItemChange) {
+          _this.options.onActiveItemChange(_this.activeItemIndex);
+        }
       };
 
       this.setActiveIndicator = function () {
@@ -760,7 +763,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     sliderWrapperClass: "slider-wrapper",
     transitionDuration: 250,
     zoomScale: -100,
-    disableOpacity: false
+    disableOpacity: false,
+    onActiveItemChange: undefined
   };
 
 
